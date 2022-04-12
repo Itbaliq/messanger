@@ -3,8 +3,10 @@ import './App.css';
 import Profile from './Components/Profile/Profile';
 import Header from './Components/Header/Header';
 import Navbar from './Components/Navbar/Navbar';
-import Dialogs from './Components/Dialogs/Dialogs';
+
 import {Route, Routes } from 'react-router-dom';
+import DialogsContainer from './Components/Dialogs/DialogsContainer';
+import Users from './Components/Users/Users';
 
 const App = (props) => {
   return (
@@ -16,15 +18,13 @@ const App = (props) => {
         <Routes>
           <Route exact path="/profile" 
             element={
-              <Profile 
-                profilePage={props.state.profilePage}
-                dispatch={props.dispatch}
-                />} />
+              <Profile/>} />
           <Route exact path="/dialogs" 
             element={
-              <Dialogs 
-                store={props.store}
-               />} />
+              <DialogsContainer />} />
+           <Route exact path="/users" 
+            element={
+              <Users/>} />
           </Routes>
         </div>
 
