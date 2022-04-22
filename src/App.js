@@ -4,9 +4,9 @@ import Profile from './Components/Profile/Profile';
 import Header from './Components/Header/Header';
 import Navbar from './Components/Navbar/Navbar';
 
-import {Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import DialogsContainer from './Components/Dialogs/DialogsContainer';
-import Users from './Components/Users/Users';
+import UsersContainer from './Components/Users/UsersContainer';
 
 const App = (props) => {
   return (
@@ -24,7 +24,7 @@ const App = (props) => {
               <DialogsContainer />} />
            <Route exact path="/users" 
             element={
-              <Users/>} />
+              <UsersContainer/>} />
           </Routes>
         </div>
 

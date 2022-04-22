@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { sendMessageCreator, updateNewMessageBodyCreator } from '../../redux/dialogs-reducer.js';
 import s from './Dialogs.module.css';
 
 const DialogsItem = (props) => {
