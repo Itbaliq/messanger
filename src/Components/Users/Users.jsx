@@ -3,18 +3,23 @@ import s from './Users.module.css';
 import React from 'react';
 import axios from 'axios';
 import wojak from '../../assets/images/default_user.png';
-const Users = (props) => {
-  let getUsers = () => {
-    if (props.users.length === 0) {
-      axios.get("https://social-network.samuraijs.com/api/1.0/users").
-        then(response => {
-          props.setUsers(response.data.items);
-        });
+import { render } from '@testing-library/react';
+let Users = (props) => {
 
-    }
-  }
+  let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+  let pages = [];
+  for (let i = 1; (i <= pagesCount && i < 10); i++) {
+    pages.push(i);
+  };
   return (<div>
-    <button onClick={getUsers} >Update</button>
+    <div>
+      {
+        pages.map(p => {
+          return (<span className={props.currentPage === p && s.selectedPage}
+            onClick={() => { props.onPageChanded(p) }}>{p}</span>)
+        }
+        )}
+    </div>
     {
       props.users.map(u => <div key={u.id}>
         <span>
@@ -24,8 +29,8 @@ const Users = (props) => {
           <div>
             {
               u.followed ?
-                <button onClick={() => { props.ChangeUserSubsctriptionAC(u.id) }} >Unfollow</button>
-                : <button onClick={() => { props.ChangeUserSubsctriptionAC(u.id) }} >Follow</button>
+                <button onClick={() => { props.ChangeUserSubsctription(u.id) }} >Unfollow</button>
+                : <button onClick={() => { props.ChangeUserSubsctription(u.id) }} >Follow</button>
             }
             <button onClick={() => { alert(u.followed) }} >Check status</button>
           </div>
@@ -45,6 +50,7 @@ const Users = (props) => {
     }
   </div>
   );
+
 }
 
 export default Users;
