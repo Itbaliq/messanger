@@ -1,31 +1,33 @@
 
 import { connect } from 'react-redux';
-import { ChangeUserSubsctription, setCurrentPage, setUsers, setTotalUsersCount, toggleIsFetching } from '../../redux/users-reducer';
+import { ChangeUserSubsctription, setCurrentPage, setUsers, setTotalUsersCount, toggleIsFetching,toggleFollowingInProgress } from '../../redux/users-reducer';
 
 import React from 'react';
 import axios from 'axios';
 import Users from './Users';
 import Preloader from '../common/Preloader';
+import {userAPI} from '../../api/api';
+
 
 class UsersAPIComponent extends React.Component {
 
 
   componentDidMount() {
     this.props.toggleIsFetching(true);
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).
-      then(response => {
+    userAPI.getUsers(this.props.currentPage,this.props.pageSize)
+      .then(data => {
         this.props.toggleIsFetching(false);
-        this.props.setUsers(response.data.items);
-        this.props.setTotalUsersCount(response.data.totalCount);
+        this.props.setUsers(data.items);
+        this.props.setTotalUsersCount(data.totalCount);
       });
   }
   onPageChanded = (currentPage) => {
     this.props.toggleIsFetching(true);
     this.props.setCurrentPage(currentPage);
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`).
-      then(response => {
+    userAPI.getUsers(currentPage,this.props.pageSize)
+    .then(data => {
         this.props.toggleIsFetching(false);
-        this.props.setUsers(response.data.items);
+        this.props.setUsers(data.items);
       });
   }
 
@@ -40,6 +42,8 @@ class UsersAPIComponent extends React.Component {
       onPageChanded={this.onPageChanded}
       users={this.props.users}
       ChangeUserSubsctription={this.props.ChangeUserSubsctription}
+      toggleFollowingInProgress={this.props.toggleFollowingInProgress}
+      followingInProgress={this.props.followingInProgress}
 
     />
     </>
@@ -54,6 +58,7 @@ let mapStateToProps = (state) => {
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
+    followingInProgress:state.usersPage.followingInProgress,
   }
 
 }
@@ -80,7 +85,7 @@ let mapDispatchToProps = (dispatch) => {
 */
 
 const UsersContainer = connect(mapStateToProps, {ChangeUserSubsctription,setUsers,
-  setCurrentPage,setTotalUsersCount,toggleIsFetching
+  setCurrentPage,setTotalUsersCount,toggleIsFetching,toggleFollowingInProgress
 })(UsersAPIComponent);
 
 export default UsersContainer;

@@ -35,3 +35,9 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.loginBlock{
+  float: right;
+}
+.loginBlock a{
+  color: white;
+}
