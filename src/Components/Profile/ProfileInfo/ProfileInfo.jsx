@@ -9,7 +9,7 @@ const ProfileInfo = (props) => {
   }
   return (
     <div>
-      <div class={s.main}>
+      <div className={s.main}>
         <img src={main}/>
       </div>
       <div className={s.descriptionBlock}>
