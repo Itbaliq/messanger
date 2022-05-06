@@ -6,7 +6,9 @@ import { compose } from 'redux';
 import React from 'react';
 import Users from './Users';
 import Preloader from '../common/Preloader';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { getUsersSlc,getPageSize,getTotalUsersCount,
+  getCurrentPage,getIsFetching,getFollowingInProgress } from '../../redux/users-selector';
+
 
 
 
@@ -17,6 +19,7 @@ class UsersAPIComponent extends React.Component {
     this.props.getUsers(this.props.currentPage,this.props.pageSize);
   }
   onPageChanded = (currentPage) => {
+ 
     this.props.getUsers(currentPage,this.props.pageSize);
   }
 
@@ -42,12 +45,12 @@ class UsersAPIComponent extends React.Component {
 let mapStateToProps = (state) => {
 
   return {
-    users: state.usersPage.users,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    followingInProgress:state.usersPage.followingInProgress,
+    users: getUsersSlc(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    followingInProgress:getFollowingInProgress(state)
   }
 
 }
@@ -56,7 +59,6 @@ export default compose(
   connect(mapStateToProps, 
     {ChangeUserSubsctription,follow,unfollow,
     setCurrentPage,getUsers
-  }),
-  withAuthRedirect
+  })
 )
 (UsersAPIComponent);

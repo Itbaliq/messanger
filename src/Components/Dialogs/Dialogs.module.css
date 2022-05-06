@@ -15,3 +15,6 @@ grid-template-columns: 2fr 10fr;
 .messages{
     padding: 10px;
 }
+.error{
+    color:red;
+}

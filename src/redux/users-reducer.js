@@ -75,11 +75,13 @@ export const toggleFollowingInProgress = (isFetching, id) => { return { type: TO
 export const getUsers = (currentPage,pageSize) => {
    return (dispatch) => {
         dispatch(toggleIsFetching(true));
+        dispatch(setCurrentPage(currentPage));
         userAPI.getUsers(currentPage, pageSize)
             .then(data => {
                 dispatch(toggleIsFetching(false));
                 dispatch(setUsers(data.items));
                 dispatch(setTotalUsersCount(data.totalCount));
+                dispatch(setCurrentPage(currentPage));
             });
 
     }
@@ -90,9 +92,10 @@ export const follow = (userId) => {
         dispatch(toggleFollowingInProgress(true,userId));
         userAPI.follow(userId)
         .then(response => {
-          if(response.resultCode==0){
+          if(response.data.resultCode==0){
             dispatch(ChangeUserSubsctription(userId));
           }
+    
           dispatch(toggleFollowingInProgress(false,userId));
         }); 
  
@@ -103,7 +106,7 @@ export const follow = (userId) => {
         dispatch(toggleFollowingInProgress(true,userId));
         userAPI.unfollow(userId)
         .then(response => {
-          if(response.resultCode==0){
+          if(response.data.resultCode==0){
             dispatch(ChangeUserSubsctription(userId));
           }
           dispatch(toggleFollowingInProgress(false,userId));

@@ -1,7 +1,54 @@
-.userPhoto{
-width:100px ;
-height:100px;
+.userPhoto {
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 70px;
+    height: 70px;
+    border-radius: 5cm;
+    border: solid black 2px;
 }
-.selectedPage{
+
+.selectedPage {
     font-weight: bold;
+    background-color: white;
+    border-radius: 2px;
+    border: solid black 2px;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    border-radius: 1pc;
+    border: solid black 2px;
+    background-color: white;
+}
+
+.avatar {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 1;
+}
+
+.name {
+    margin: 5px;
+    text-align: left;
+}
+
+.status {
+    grid-column-start: 3;
+    grid-column-end: 1;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    text-align: center;
+    margin: auto;
+}
+
+.box {
+    margin: 10px;
+
+}
+
+.buttons button {
+    border-radius: 5cm;
+    border: solid black 2px;
 }
